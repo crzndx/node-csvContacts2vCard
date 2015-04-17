@@ -1,14 +1,15 @@
-//Converter Class
 var Converter = require("csvtojson").core.Converter;
 var fs = require("fs");
 var vCard = require('vcards-js');
 
 var csvFileName="./input.csv";
 var fileStream=fs.createReadStream(csvFileName);
-//new converter instance
-var csvConverter=new Converter({constructResult:true, delimiter: ';'});
 
-//create a new vCard
+var csvConverter=new Converter({
+        constructResult:true,
+        delimiter: ';'
+});
+
 vCard = vCard();
 
 //end_parsed will be emitted once parsing finished
@@ -18,10 +19,9 @@ csvConverter.on("end_parsed",function(jsonObj){
     jsonObj.forEach(function (data) {
 
         //set properties
-
         vCard.firstName = data.Vorname;
         vCard.lastName = data.Name;
-        vCard.organization = 'FSI WINF IIS';
+        vCard.organization = 'Orgname';
         vCard.cellPhone = data.Mobil;
         vCard.email = data.EMail;
 
